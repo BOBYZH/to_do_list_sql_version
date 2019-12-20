@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
@@ -7,12 +7,12 @@ module.exports = {
       allowNull: false,
       reference: {
         model: 'Users',
-        key: 'id',
-      },
-    });
+        key: 'id'
+      }
+    })
   },
 
   down: (queryInterface, Sequelize) => {
-    return queryInterface.removeColumn('Todos', 'UserId');
+    return queryInterface.removeColumn('Todos', 'UserId')
   }
-};
+}
