@@ -10,7 +10,10 @@ router.get('/login', (req, res) => {
 })
 
 router.post('/login', (req, res, next) => {
-  res.send('登入檢查')
+  passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/users/login'
+  })(req, res, next)
 })
 
 router.get('/register', (req, res) => {
@@ -29,15 +32,15 @@ router.post('/register', (req, res) => {
         password2
       })
     } else {
-      const newUser = new User({  //  如果 email 不存在就直接新增
+      const newUser = new User({ //  如果 email 不存在就直接新增
         name,
         email,
-        password,
+        password
       })
       newUser
         .save()
         .then(user => {
-          res.redirect('/')                   // 新增完成導回首頁
+          res.redirect('/') // 新增完成導回首頁
         })
         .catch(err => console.log(err))
     }
