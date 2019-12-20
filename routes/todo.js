@@ -18,7 +18,7 @@ router.get('/new', authenticated, (req, res) => {
 router.get('/:id', authenticated, (req, res) => {
   User.findByPk(req.user.id)
     .then((user) => {
-      if (!user) throw new Error("user not found");
+      if (!user) throw new Error('user not found')
 
       return Todo.findOne({
         where: {
@@ -44,27 +44,27 @@ router.post('/', authenticated, (req, res) => {
 router.get('/:id/edit', authenticated, (req, res) => {
   User.findByPk(req.user.id)
     .then((user) => {
-      if (!user) throw new Error("user not found")
+      if (!user) throw new Error('user not found')
       return Todo.findOne({
         where: {
           Id: req.params.id,
-          UserId: req.user.id,
+          UserId: req.user.id
         }
       })
     })
-    .then((todo) => { return res.render('edit', { todo: todo }) })  
+    .then((todo) => { return res.render('edit', { todo: todo }) })
 })
 
 router.put('/:id', authenticated, (req, res) => {
   Todo.findOne({
     where: {
       Id: req.params.id,
-      UserId: req.user.id,
+      UserId: req.user.id
     }
   })
     .then((todo) => {
       todo.name = req.body.name
-      todo.done = req.body.done === "on"
+      todo.done = req.body.done === 'on'
 
       return todo.save()
     })
@@ -75,7 +75,7 @@ router.put('/:id', authenticated, (req, res) => {
 router.delete('/:id/delete', authenticated, (req, res) => {
   User.findByPk(req.user.id)
     .then((user) => {
-      if (!user) throw new Error("user not found")
+      if (!user) throw new Error('user not found')
 
       return Todo.destroy({
         where: {
